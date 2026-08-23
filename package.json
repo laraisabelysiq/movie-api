@@ -1,0 +1,21 @@
+{
+  "name": "api-filmes",
+  "version": "1.0.0",
+  "description": "API REST para gerenciamento de filmes, atores, gêneros e participações, desenvolvida com Node.js, Express e MySQL.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Lara Isabely",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^4.22.2",
+    "serverless-mysql": "^1.5.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
