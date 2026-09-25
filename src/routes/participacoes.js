@@ -101,9 +101,11 @@ router.delete("/participacoes", async (req, res) => {
              WHERE ator_id = ? AND filme_id = ?`,
             [ator_id, filme_id]
         );
-        console.log(
-            `Participação removida - Ator ID: ${ator_id}, Filme ID: ${filme_id}`
-        );
+        if (resultado.affectedRows === 0) {
+            return res.status(404).json({
+                message: "Participação não encontrada."
+            });
+        }
         res.status(200).json({
             message: "Participação removida com sucesso",
             rowsAffected: participacao.affectedRows,
