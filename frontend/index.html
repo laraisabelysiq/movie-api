@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Movie API</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div class="container header-content">
+
+            <a href="#" class="logo">
+                <span class="logo-icon">▶</span>
+                <span>Movie<span class="logo-highlight">API</span></span>
+            </a>
+
+            <div class="api-status" id="apiStatus">
+                <span class="status-dot"></span>
+                <span>Conectando...</span>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-background"></div>
+
+            <div class="container hero-content">
+
+                <span class="hero-tag">
+                    SUA CENTRAL DE FILMES
+                </span>
+
+                <h1>
+                    Encontre seu próximo
+                    <span>filme favorito.</span>
+                </h1>
+
+                <p>
+                    Pesquise filmes, descubra novas histórias e
+                    explore títulos por diferentes gêneros.
+                </p>
+
+                <form class="search-form" id="searchForm">
+
+                    <div class="search-box">
+
+                        <span class="search-icon">⌕</span>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Buscar por título..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                    <button type="submit">
+                        Buscar
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <section class="catalog">
+
+            <div class="container">
+
+                <div class="catalog-top">
+
+                    <div>
+
+                        <span class="section-label">
+                            CATÁLOGO
+                        </span>
+
+                        <h2 id="sectionTitle">
+                            Filmes
+                        </h2>
+
+                        <p id="resultInfo">
+                            Explore nosso catálogo.
+                        </p>
+
+                    </div>
+
+
+                    <div class="filter">
+
+                        <label for="genreSelect">
+                            Explorar por gênero
+                        </label>
+
+                        <select id="genreSelect">
+
+                            <option value="">
+                                Todos os gêneros
+                            </option>
+
+                            <option value="Ação">
+                                Ação
+                            </option>
+
+                            <option value="Aventura">
+                                Aventura
+                            </option>
+
+                            <option value="Comédia">
+                                Comédia
+                            </option>
+
+                            <option value="Drama">
+                                Drama
+                            </option>
+
+                            <option value="Ficção Científica">
+                                Ficção Científica
+                            </option>
+
+                            <option value="Romance">
+                                Romance
+                            </option>
+
+                            <option value="Terror">
+                                Terror
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="loading"
+                    class="loading hidden"
+                >
+
+                    <div class="spinner"></div>
+
+                    <span>Carregando filmes...</span>
+
+                </div>
+
+
+                <div
+                    id="errorMessage"
+                    class="message error hidden"
+                >
+
+                    <div class="message-icon">
+                        !
+                    </div>
+
+                    <h3>Não foi possível encontrar os filmes</h3>
+
+                    <p></p>
+
+                </div>
+
+
+                <div
+                    id="emptyMessage"
+                    class="message hidden"
+                >
+
+                    <div class="message-icon">
+                        🎬
+                    </div>
+
+                    <h3>Nenhum filme encontrado</h3>
+
+                    <p>
+                        Tente realizar outra busca ou explorar outro gênero.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="movies-grid"
+                    id="moviesGrid"
+                ></div>
+
+
+                <div
+                    class="pagination"
+                    id="pagination"
+                ></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div
+        class="modal hidden"
+        id="movieModal"
+    >
+
+        <div
+            class="modal-overlay"
+            id="modalOverlay"
+        ></div>
+
+        <div class="modal-content">
+
+            <button
+                class="modal-close"
+                id="modalClose"
+                aria-label="Fechar"
+            >
+                ×
+            </button>
+
+            <div id="movieDetails"></div>
+
+        </div>
+
+    </div>
+
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div class="footer-logo">
+                <span class="logo-icon">▶</span>
+                Movie<span>API</span>
+            </div>
+
+            <p>
+                Projeto desenvolvido com HTML, CSS, JavaScript,
+                Node.js, Express e MySQL.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="./js/script.js"></script>
+
+</body>
+
+</html>
