@@ -1,0 +1,1611 @@
+{
+  "info": {
+    "_postman_id": "76e98f37-f3d0-443d-a634-3b14b11b781b",
+    "name": "Movie Api",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58547039",
+    "_collection_link": "https://go.postman.co/collection/58547039-76e98f37-f3d0-443d-a634-3b14b11b781b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Filmes",
+      "item": [
+        {
+          "name": "Testes",
+          "item": [
+            {
+              "name": "Listar filmes - Página inválida",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Correct error message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\"Página inválida.\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/filmes/0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes",
+                    "0"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Listar filmes - Página inexistente",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/filmes/999",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes",
+                    "999"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Buscar filme - ID inválido",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Correct error message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\"ID inválido.\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/filme/abc",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filme",
+                    "abc"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Buscar filme - Não encontrado",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 404\", function () {\r",
+                      "    pm.response.to.have.status(404);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Correct error message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\"Filme não encontrado.\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/filme/9999",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filme",
+                    "9999"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Buscar filmes - Sem resultados",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/filmes/busca/xyzfilmeinexistente",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes",
+                    "busca",
+                    "xyzfilmeinexistente"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Buscar por gênero - Sem resultados",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/generos/GeneroInexistente",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "generos",
+                    "GeneroInexistente"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme - Título obrigatório",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"ano\": 2023,\r\n    \"duracao\": 180,\r\n    \"sinopse\": \"Um físico lidera o desenvolvimento da primeira bomba atômica.\",\r\n    \"poster\": \"https://example.com/oppenheimer.jpg\",\r\n    \"nota\": 8.6,\r\n    \"votos\": 100000,\r\n    \"imdb_id\": \"tt99999999\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filmes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme - IMDb inválido",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"titulo\": \"Filme de Teste\",\r\n    \"ano\": 2023,\r\n    \"duracao\": 120,\r\n    \"sinopse\": \"Filme utilizado para teste da API.\",\r\n    \"poster\": \"https://example.com/teste.jpg\",\r\n    \"nota\": 8,\r\n    \"votos\": 100,\r\n    \"imdb_id\": \"123456\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filmes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme - Nota inválida",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"titulo\": \"Filme de Teste\",\r\n    \"ano\": 2023,\r\n    \"duracao\": 120,\r\n    \"sinopse\": \"Filme utilizado para teste da API.\",\r\n    \"poster\": \"https://example.com/teste.jpg\",\r\n    \"nota\": 15,\r\n    \"votos\": 100,\r\n    \"imdb_id\": \"tt123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filmes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme - Ano inválido",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"titulo\": \"Filme de Teste\",\r\n    \"ano\": 1000,\r\n    \"duracao\": 120,\r\n    \"sinopse\": \"Filme utilizado para teste da API.\",\r\n    \"poster\": \"https://example.com/teste.jpg\",\r\n    \"nota\": 8,\r\n    \"votos\": 100,\r\n    \"imdb_id\": \"tt123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filmes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme - Duplicado",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 409\", function () {\r",
+                      "    pm.response.to.have.status(409);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Duplicate movie message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\"Esse filme já está cadastrado.\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"titulo\": \"Oppenheimer\",\r\n    \"ano\": 2023,\r\n    \"duracao\": 180,\r\n    \"sinopse\": \"Um físico lidera o desenvolvimento da primeira bomba atômica durante a Segunda Guerra Mundial.\",\r\n    \"poster\": \"https://example.com/oppenheimer.jpg\",\r\n    \"nota\": 8.6,\r\n    \"votos\": 100000,\r\n    \"imdb_id\": \"tt15398776\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filmes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme - ID inválido",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": \"abc\",\r\n    \"titulo\": \"Filme de Teste\",\r\n    \"ano\": 2023,\r\n    \"duracao\": 120,\r\n    \"sinopse\": \"Teste.\",\r\n    \"poster\": \"https://example.com/teste.jpg\",\r\n    \"nota\": 8,\r\n    \"votos\": 100,\r\n    \"imdb_id\": \"tt99999999\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filmes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme - Não encontrado",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 9999,\r\n    \"titulo\": \"Filme de Teste\",\r\n    \"ano\": 2023,\r\n    \"duracao\": 120,\r\n    \"sinopse\": \"Teste.\",\r\n    \"poster\": \"https://example.com/teste.jpg\",\r\n    \"nota\": 8,\r\n    \"votos\": 100,\r\n    \"imdb_id\": \"tt99999999\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/filmes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme - ID inválido",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/filmes/abc",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes",
+                    "abc"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme - Não encontrado",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/filmes/9999",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filmes",
+                    "9999"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Listar filmes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains pagination data\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json).to.have.property(\"pagina\");\r",
+                  "    pm.expect(json).to.have.property(\"filmesPorPagina\");\r",
+                  "    pm.expect(json).to.have.property(\"totalFilmes\");\r",
+                  "    pm.expect(json).to.have.property(\"totalPaginas\");\r",
+                  "    pm.expect(json).to.have.property(\"filmes\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Movies are returned as an array\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.filmes).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/filmes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filmes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar filme por ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Movie contains expected fields\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json).to.have.property(\"id\");\r",
+                  "    pm.expect(json).to.have.property(\"titulo\");\r",
+                  "    pm.expect(json).to.have.property(\"nota\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/filme/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filme",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar filmes por título",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Search information is present\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json).to.have.property(\"busca\");\r",
+                  "    pm.expect(json).to.have.property(\"totalResultados\");\r",
+                  "    pm.expect(json).to.have.property(\"filmes\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Search results are an array\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.filmes).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/filmes/busca/senhor",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filmes",
+                "busca",
+                "senhor"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar filmes por gênero",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Genre information is present\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json).to.have.property(\"genero\");\r",
+                  "    pm.expect(json).to.have.property(\"totalResultados\");\r",
+                  "    pm.expect(json).to.have.property(\"filmes\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Movies are returned as an array\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.filmes).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/generos/Drama",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "generos",
+                "Drama"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Adicionar filme Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Movie was created successfully\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.message).to.eql(\"Filme adicionado com sucesso.\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains movie ID\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json).to.have.property(\"filmeID\");\r",
+                  "    pm.expect(json.filmeID).to.be.a(\"number\");\r",
+                  "});\r",
+                  "\r",
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "if (pm.response.code === 201) {\r",
+                  "    pm.collectionVariables.set(\"filmeIdTeste\", json.filmeID);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"Oppenheimer\",\r\n    \"ano\": 2023,\r\n    \"duracao\": 180,\r\n    \"sinopse\": \"Um físico lidera o desenvolvimento da primeira bomba atômica durante a Segunda Guerra Mundial.\",\r\n    \"poster\": \"https://example.com/oppenheimer.jpg\",\r\n    \"nota\": 8.6,\r\n    \"votos\": 100000,\r\n    \"imdb_id\": \"tt15398779\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/filmes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filmes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar filme",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Movie was updated successfully\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.message).to.eql(\"Filme atualizado com sucesso.\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": {{filmeIdTeste}},\r\n    \"titulo\": \"Oppenheimer\",\r\n    \"ano\": 2023,\r\n    \"duracao\": 180,\r\n    \"sinopse\": \"Sinopse atualizada do filme.\",\r\n    \"poster\": \"https://example.com/oppenheimer.jpg\",\r\n    \"nota\": 8.7,\r\n    \"votos\": 105000,\r\n    \"imdb_id\": \"tt15398779\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/filmes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filmes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remover filme",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Movie was deleted successfully\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.message).to.eql(\"Filme deletado com sucesso.\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/filmes/{{filmeIdTeste}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filmes",
+                "{{filmeIdTeste}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Atores",
+      "item": [
+        {
+          "name": "Testes",
+          "item": [
+            {
+              "name": "ID inválido",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/ator/abc",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ator",
+                    "abc"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Ator inexistente",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 404\", function () {\r",
+                      "    pm.response.to.have.status(404);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Correct error message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\r",
+                      "        \"Ator não encontrado ou sem filmes cadastrados.\"\r",
+                      "    );\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/ator/9999",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "ator",
+                    "9999"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Busca sem resultado",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/atores/busca/AtorInexistente",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "atores",
+                    "busca",
+                    "AtorInexistente"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Nome vazio",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"titulo\": \"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/atores",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "atores"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "ID inválido",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": \"abc\",\r\n    \"titulo\": \"Teste\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/atores",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "atores"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Ator inexistente",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 9999,\r\n    \"titulo\": \"Teste\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/atores",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "atores"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "ID inválido",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/atores/abc",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "atores",
+                    "abc"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Ator inexistente",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/atores/9999",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "atores",
+                    "9999"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Buscar ator por ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Actor response is an array\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ator/16",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ator",
+                "16"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar ator por nome",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/atores/busca/Leonardo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores",
+                "busca",
+                "Leonardo"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Adicionar ator",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Actor was created successfully\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.message).to.eql(\"Ator adicionado com sucesso.\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains actor ID\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json).to.have.property(\"atorID\");\r",
+                  "    pm.expect(json.atorID).to.be.a(\"number\");\r",
+                  "});\r",
+                  "\r",
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "if (pm.response.code === 201) {\r",
+                  "    pm.collectionVariables.set(\"atorIdTeste\", json.atorID);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"Cillian Murphy\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/atores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar ator",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Actor was updated successfully\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.message).to.eql(\"Ator atualizado com sucesso\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains actor ID\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json).to.have.property(\"atorID\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": {{atorIdTeste}},\r\n    \"titulo\": \"Christopher Nolan\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/atores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remover ator",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Actor was deleted successfully\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.message).to.eql(\r",
+                  "        \"Ator e participações removidos com sucesso.\"\r",
+                  "    );\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/atores/{{atorIdTeste}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores",
+                "{{atorIdTeste}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Participações",
+      "item": [
+        {
+          "name": "Testes",
+          "item": [
+            {
+              "name": "Ator inválido",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Correct error message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\"ID do ator inválido.\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"ator_id\": \"abc\",\r\n    \"filme_id\": 2\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/participacoes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "participacoes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme inválido",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Correct error message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\"ID do filme inválido.\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"ator_id\": 1,\r\n    \"filme_id\": \"abc\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/participacoes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "participacoes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Ator inexistente",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 404\", function () {\r",
+                      "    pm.response.to.have.status(404);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Correct error message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\"Ator não encontrado.\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"ator_id\": 9999,\r\n    \"filme_id\": 2\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/participacoes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "participacoes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filme inexistente",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 404\", function () {\r",
+                      "    pm.response.to.have.status(404);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Correct error message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\"Filme não encontrado.\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"ator_id\": 1,\r\n    \"filme_id\": 9999\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/participacoes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "participacoes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Participação duplicada",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 409\", function () {\r",
+                      "    pm.response.to.have.status(409);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Correct duplicate message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\r",
+                      "        \"Essa participação já está cadastrada.\"\r",
+                      "    );\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"ator_id\": 1,\r\n    \"filme_id\": 2\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/participacoes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "participacoes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Participação inexistente",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 404\", function () {\r",
+                      "    pm.response.to.have.status(404);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Correct error message is returned\", function () {\r",
+                      "    const json = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(json.message).to.eql(\"Participação não encontrada.\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"ator_id\": 1,\r\n    \"filme_id\": 9999\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/participacoes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "participacoes"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Adicionar participação",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Participation was created successfully\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.message).to.eql(\r",
+                  "        \"Participação adicionada com sucesso.\"\r",
+                  "    );\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains participation ID\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json).to.have.property(\"participacaoID\");\r",
+                  "    pm.expect(json.participacaoID).to.be.a(\"number\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"ator_id\": {{atorIdTeste}},\r\n    \"filme_id\": {{filmeIdTeste}}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/participacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "participacoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remover participação",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Participation was deleted successfully\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(json.message).to.eql(\r",
+                  "        \"Participação removida com sucesso.\"\r",
+                  "    );\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"ator_id\": {{atorIdTeste}},\r\n    \"filme_id\": {{filmeIdTeste}}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/participacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "participacoes"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "filmeIdTeste",
+      "value": ""
+    },
+    {
+      "key": "atorIdTeste",
+      "value": ""
+    }
+  ]
+}
