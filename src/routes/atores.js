@@ -183,10 +183,6 @@ router.delete("/atores/:id", async (req, res) => {
             });
         }
 
-        const filmes_ator = await bancoDados.query( //remove as participações
-            `DELETE FROM atores_filmes WHERE ator_id = ?`,
-            [ator_id]
-        );
         // deleta o ator
         const atorRemovido = await bancoDados.query(
             `DELETE FROM atores WHERE id = ?`, 
@@ -197,7 +193,6 @@ router.delete("/atores/:id", async (req, res) => {
         // resultados
         res.status(200).json({
             message: "Ator e participações removidos com sucesso.",
-            participacoesRemovidas: filmes_ator.affectedRows,
             atorRemovido: atorRemovido.affectedRows
         });
     } catch (error) {
